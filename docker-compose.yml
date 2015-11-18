@@ -1,0 +1,31 @@
+consul:
+  image: gliderlabs/consul-server
+  command: -bootstrap
+  ports:
+    - "8500:8500"
+    - "53:8600/udp"
+registrator:
+  image: gliderlabs/registrator
+  command: consul://consul:8500
+  links:
+    - consul
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock
+master:
+  build: .
+  ports:
+    - "3000:3000"
+  environment:
+    SERVICE_NAME: master
+slave:
+  build: .
+  ports:
+    - 3000
+  environment:
+    SERVICE_NAME: slave
+worker:
+  build: .
+  ports:
+    - 3000
+  environment:
+    SERVICE_NAME: worker
