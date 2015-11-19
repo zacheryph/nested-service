@@ -43,7 +43,7 @@ func NewMessage(path string) Message {
 }
 
 func fetchSubURL(service, path string) Message {
-	url := fmt.Sprintf("http://%s.consul:3000/%s", service, path)
+	url := fmt.Sprintf("http://%s.service.consul:3000/%s", service, path)
 	fmt.Println("Querying:", url)
 	msg := Message{}
 
