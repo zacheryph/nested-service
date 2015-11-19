@@ -12,6 +12,7 @@ import (
 type Message struct {
 	Hostname    string    `json:"hostname"`
 	ServiceName string    `json:"service_name"`
+	Error       string    `json:"error"`
 	Messages    []Message `json:"messages"`
 }
 
@@ -49,6 +50,7 @@ func fetchSubURL(service, path string) Message {
 	res, err := http.Get(url)
 	if err != nil {
 		fmt.Println("Failed request:", err)
+		msg.Error = err.Error()
 		return msg
 	}
 
