@@ -17,15 +17,21 @@ master:
     - "3000:3000"
   environment:
     SERVICE_NAME: master
+  links:
+    - registrator
 slave:
   build: .
   ports:
     - 3000
   environment:
     SERVICE_NAME: slave
+  links:
+    - registrator
 worker:
   build: .
   ports:
     - 3000
   environment:
     SERVICE_NAME: worker
+  links:
+    - registrator
