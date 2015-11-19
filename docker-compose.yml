@@ -7,12 +7,14 @@ consul:
 registrator:
   image: gliderlabs/registrator
   command: consul://consul:8500
+  dns: "172.17.0.1"
   links:
     - consul
   volumes:
     - /var/run/docker.sock:/tmp/docker.sock
 master:
   build: .
+  dns: "172.17.0.1"
   ports:
     - "3000:3000"
   environment:
@@ -21,6 +23,7 @@ master:
     - registrator
 slave:
   build: .
+  dns: "172.17.0.1"
   ports:
     - 3000
   environment:
@@ -29,6 +32,7 @@ slave:
     - registrator
 worker:
   build: .
+  dns: "172.17.0.1"
   ports:
     - 3000
   environment:
