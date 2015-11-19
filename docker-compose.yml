@@ -6,7 +6,7 @@ consul:
     - "53:8600/udp"
 registrator:
   image: gliderlabs/registrator
-  command: consul://consul:8500
+  command: -internal consul://consul:8500
   dns: "172.17.0.1"
   links:
     - consul
@@ -24,8 +24,8 @@ master:
 slave:
   build: .
   dns: "172.17.0.1"
-  ports:
-    - 3000
+  expose:
+    - "3000"
   environment:
     SERVICE_NAME: slave
   links:
@@ -33,8 +33,8 @@ slave:
 worker:
   build: .
   dns: "172.17.0.1"
-  ports:
-    - 3000
+  expose:
+    - "3000"
   environment:
     SERVICE_NAME: worker
   links:
