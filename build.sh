@@ -6,7 +6,7 @@ _build() {
   docker run --rm \
     -v ${PWD}:$container_path \
     -w $container_path \
-    golang:1.5.1-alpine \
+    golang:1.5.3-alpine \
       go build -v
 }
 
