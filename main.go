@@ -12,8 +12,8 @@ import (
 type Message struct {
 	Hostname    string    `json:"hostname"`
 	ServiceName string    `json:"service_name"`
-	Error       string    `json:"error"`
-	Messages    []Message `json:"messages"`
+	Error       string    `json:"error,omitempty"`
+	Messages    []Message `json:"messages,omitempty"`
 }
 
 var hostname string
