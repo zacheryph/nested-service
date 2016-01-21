@@ -20,7 +20,6 @@ var hostname string
 
 func splitPath(path string) (string, string) {
 	if paths := strings.SplitN(path, "/", 2); len(paths) > 1 {
-		fmt.Println("Splitting", paths)
 		return paths[0], paths[1]
 	}
 	return path, ""
@@ -35,7 +34,6 @@ func NewMessage(path string) Message {
 	}
 
 	if service, path := splitPath(path); service != "" {
-		fmt.Println("Service:Path", service, path)
 		msg.Messages = append(msg.Messages, fetchSubURL(service, path))
 	}
 
@@ -44,7 +42,6 @@ func NewMessage(path string) Message {
 
 func fetchSubURL(service, path string) Message {
 	url := fmt.Sprintf("http://%s.service.consul:3000/%s", service, path)
-	fmt.Println("Querying:", url)
 	msg := Message{}
 
 	res, err := http.Get(url)
@@ -63,6 +60,7 @@ func fetchSubURL(service, path string) Message {
 }
 
 func handleRequest(w http.ResponseWriter, req *http.Request) {
+	fmt.Println("Handling Request:", req.URL.Path)
 	m := NewMessage(req.URL.Path[1:])
 	json := json.NewEncoder(w)
 	w.Header().Set("Content-Type", "application/json")
@@ -81,5 +79,6 @@ func main() {
 
 	http.HandleFunc("/", handleRequest)
 	http.HandleFunc("/favicon.ico", handleIcon)
+	fmt.Println("Service Listening :3000")
 	http.ListenAndServe(":3000", nil)
 }
