@@ -10,7 +10,7 @@ variables:
 stages:
 - build
 
-image:
+docker.image:
   stage: build
   only:
   - master
