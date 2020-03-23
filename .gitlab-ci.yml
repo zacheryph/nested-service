@@ -7,7 +7,7 @@ variables:
 #   - ln -svf $CI_PROJECT_DIR $GOPATH/src/$REPO_NAME
 #   - cd $GOPATH/src/$REPO_NAME
 
-steps:
+stages:
 - build
 
 image:
