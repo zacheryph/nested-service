@@ -41,7 +41,7 @@ func NewMessage(path string) Message {
 }
 
 func fetchSubURL(service, path string) Message {
-	url := fmt.Sprintf("http://%s:3000/%s", service, path)
+	url := fmt.Sprintf("http://nestsvc-%s/%s", service, path)
 	msg := Message{}
 
 	res, err := http.Get(url)
